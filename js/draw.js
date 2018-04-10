@@ -12,6 +12,10 @@ var c = document.getElementById("myCanvas");
     //the canvas context
     var ctx = c.getContext("2d");
 
+    //create a white background to start off with
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0,c.width,c.height);
+
     //run the mouse up command to set up the debug mouseDown box
     mouseUp();
     
