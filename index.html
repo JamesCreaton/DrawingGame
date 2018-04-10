@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-		<link rel="stylesheet" type="text/css" href="style.css">
+<title>Drawing Game</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
+    
+    <div class="header">
+        <h1>Header</h1>
+        <p>testing</p>
+    </div>
+    
+    <div class="row">
+        <div class="left-content">
+        <p>Left Content</p>
+            <p>Display the object name to be drawn.</p>
+	   </div>
+    
+        <div class="right-content">
+        <p>Drawning pane</p>
+            <canvas id="myCanvas" class="canvas" width="500" height="500" style="border:1px solid #d3d3d3;">Your browser does not support the HTML5 canvas tag.</canvas>
 
-	<div class="canvas-container">
-		<canvas id="myCanvas" class="canvas" width="500" height="500" style="border:1px solid #d3d3d3;">Your browser does not support the HTML5 canvas tag.</canvas>
-
-    <script type="text/javascript" src="js/draw.js"></script>
-	</div>
-
-
+            <script type="text/javascript" src="js/draw.js"></script>
+        </div>
+    </div>
 
 </body>
 </html>

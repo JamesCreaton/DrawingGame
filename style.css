@@ -1,3 +1,36 @@
-.canvas_container{
-	align-content: right;
+* {
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+}
+
+.header{
+    background-color: #f1f1f1;
+    padding: 20x;
+    text-align: center;
+}
+
+.row:after{
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column{
+    float: left;
+    padding: 10px;
+}
+
+.left-content{
+    float: left;
+    width: 25%;
+    background-color: aqua;
+}
+
+.right-content{
+    float: right;
+     width: 75%;
+    background-color: beige;
 }
