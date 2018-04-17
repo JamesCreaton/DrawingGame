@@ -4,6 +4,9 @@ var c = document.getElementById("myCanvas");
     c.onmouseup = mouseUp;
     c.onmousemove = mouseMove;
     c.onmouseout = mouseLeftCanvas;
+
+    c.width = 400;
+    c.height = 400;
     
     //last known mouse position
     var mouse = {x:0, y:0};
@@ -22,7 +25,7 @@ var c = document.getElementById("myCanvas");
     //test stuff relating to color, can delete later
     var maxColorVal = 360;
     var testColor = 0;
-    
+
     //left mouse was pressed on canvas
     function mouseDown(e){
         isMouseDown = true;
@@ -83,7 +86,22 @@ var c = document.getElementById("myCanvas");
         //that would prevent the weird line when drawing slowly
         
         //draw line
-        drawLine(mouse, currMouse);
+        //Check if the line has moved a certain amount
+        
+        //Distance checking
+        var a = mouse.x - currMouse.x;
+        var b = mouse.y - currMouse.y;
+
+        var distance = Math.sqrt( a*a + b*b );
+        
+        //Only draw if distance is above value
+        if(distance > 1){
+            drawLine(mouse, currMouse);
+        }
+        else{
+            
+        }
+        
         //update old mouse pos to the new one
         mouse = currMouse;
         //test color code
