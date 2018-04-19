@@ -17,13 +17,20 @@ var c = document.getElementById("myCanvas");
 
     //create a white background to start off with
     ctx.fillStyle = "white";
-    ctx.fillRect(0,0,c.width,c.height);
+    ctx.fillRect(0, 0, c.width, c.height);
+    
+    
+    //line information
+    var lineWidth = 10;
+    var lineColor = "hsl(" + 0 + ", 100%, 50%)";
+    //how far do we move the mouse before we place the line
+    const distBetweenPoints = 10; 
 
     //run the mouse up command to set up the debug mouseDown box
     mouseUp();
     
     //test stuff relating to color, can delete later
-    var maxColorVal = 360;
+    const maxColorVal = 360;
     var testColor = 0;
 
     //left mouse was pressed on canvas
@@ -33,6 +40,9 @@ var c = document.getElementById("myCanvas");
         mouse = updateMouse(e);
         //debug, can delete later
         drawTestMouseDownBox("blue");
+        
+        //mouse has been clicked, draw a circle at click position to give the line a nice rounded look
+        drawCircle(mouse);
     }
     
     function mouseUp(){
@@ -51,8 +61,8 @@ var c = document.getElementById("myCanvas");
     
     //test func, draws colored box in top left corner
     function drawTestMouseDownBox(color){
-        ctx.fillStyle=color;
-        ctx.fillRect(0,0,20,20);
+        ctx.fillStyle = color;
+        ctx.fillRect(0, 0, 20, 20);
     }
     
     //draws a line from from to to... probs best to change those names
@@ -61,16 +71,21 @@ var c = document.getElementById("myCanvas");
         ctx.beginPath();
         
         //just a test, changing the color to make it more interesting
-        var green = testColor>maxColorVal?testColor*-1 + (maxColorVal*2):testColor;
-        //ctx.strokeStyle="rgb(255,"+green+",0)";
-        ctx.strokeStyle="hsl("+green+",100%,50%)";
+        ctx.strokeStyle = lineColor;
         
-        ctx.lineWidth = 10;      
+        ctx.lineWidth = lineWidth;      
         
         //line drawing part
-        ctx.moveTo(from.x,from.y);
-        ctx.lineTo(to.x,to.y);        
+        ctx.moveTo(from.x, from.y);
+        ctx.lineTo(to.x, to.y);        
         ctx.stroke();
+    }
+
+    function drawCircle(at){
+        ctx.fillStyle = lineColor;
+        ctx.beginPath();
+        ctx.arc(at.x, at.y, lineWidth / 2, 0, 2 * Math.PI);
+        ctx.fill();
     }
     
     //the mouse has been moved on the canvas
@@ -95,17 +110,23 @@ var c = document.getElementById("myCanvas");
         var distance = Math.sqrt( a*a + b*b );
         
         //Only draw if distance is above value
-        if(distance > 1){
-            drawLine(mouse, currMouse);
-        }
-        else{
+        if(distance > distBetweenPoints){
             
+            //this basicly just goes from 0-maxColorVal-0
+            //debug color changer, replace with UI buttons
+            var hue = (testColor > maxColorVal) ? (testColor * -1 + (maxColorVal * 2)) : testColor;
+            lineColor = "hsl(" + hue + ",100%,50%)";
+            //update test color/hue code
+            testColor = (testColor+1)%(maxColorVal*2);
+            
+            drawLine(mouse, currMouse);
+            drawCircle(currMouse);
+
+            //update old mouse pos to the new one
+            mouse = currMouse;            
         }
         
-        //update old mouse pos to the new one
-        mouse = currMouse;
-        //test color code
-        testColor = (testColor+1)%(maxColorVal*2);
+
     }
     
     //returns the current mouse pos relative to the canvas
